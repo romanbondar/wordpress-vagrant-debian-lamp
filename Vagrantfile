@@ -38,7 +38,7 @@ GRANT ALL ON wordpress.* TO 'username';"
 
 # Install PHP:
 apt-get install -y php7.4 php7.4-mysql php7.4-mbstring php7.4-zip php7.4-gd php7.4-curl \
-php7.4-xml php7.4-imagick php7.4-ssh2 imagemagick php7.4-bcmath php7.4-soap
+php7.4-xml php7.4-imagick php-ssh2 imagemagick php7.4-bcmath php7.4-soap
 
 # Increase PHP limits:
 sed -i "s/memory_limit = 128M/memory_limit = 1G/" /etc/php/7.4/apache2/php.ini
