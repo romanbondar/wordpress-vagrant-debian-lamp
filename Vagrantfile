@@ -37,13 +37,21 @@ CREATE USER 'username' IDENTIFIED BY 'password'; \
 GRANT ALL ON wordpress.* TO 'username';"
 
 # Install PHP:
-apt-get install -y php7.4 php7.4-mysql php7.4-mbstring php7.4-zip php7.4-gd php7.4-curl \
-php7.4-xml php7.4-imagick php-ssh2 imagemagick php7.4-bcmath php7.4-soap
+# apt-get install -y php7.4 php7.4-mysql php7.4-mbstring php7.4-zip php7.4-gd php7.4-curl \
+# php7.4-xml php7.4-imagick php-ssh2 imagemagick php7.4-bcmath php7.4-soap
 
-# Increase PHP limits:
-sed -i "s/memory_limit = 128M/memory_limit = 1G/" /etc/php/7.4/apache2/php.ini
-sed -i "s/post_max_size = 8M/post_max_size = 8G/" /etc/php/7.4/apache2/php.ini
-sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 8G/" /etc/php/7.4/apache2/php.ini
+# Install PHP from the https://packages.sury.org/php/ repository:
+apt-get -y install apt-transport-https lsb-release ca-certificates curl
+wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+apt-get update
+apt-get install -y php8.0 php8.0-mysql php8.0-mbstring php8.0-zip php8.0-gd \
+php8.0-curl php8.0-xml php8.0-imagick php8.0-mcrypt php8.0-ssh2 imagemagick php8.0-bcmath php8.0-soap
+
+# Increase PHP limits (this also can be done with "php_value" in .htaccess):
+# sed -i "s/memory_limit = 128M/memory_limit = 1G/" /etc/php/7.4/apache2/php.ini
+# sed -i "s/post_max_size = 8M/post_max_size = 8G/" /etc/php/7.4/apache2/php.ini
+# sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 8G/" /etc/php/7.4/apache2/php.ini
 
 # Restart Apache after enabling the Apache rewrite module, ssl module, and increasing the PHP limits:
 systemctl restart apache2
