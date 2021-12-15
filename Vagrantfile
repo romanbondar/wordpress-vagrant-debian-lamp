@@ -37,8 +37,8 @@ CREATE USER 'username' IDENTIFIED BY 'password'; \
 GRANT ALL ON wordpress.* TO 'username';"
 
 # Install PHP:
-# apt-get install -y php7.4 php7.4-mysql php7.4-mbstring php7.4-zip php7.4-gd php7.4-curl \
-# php7.4-xml php7.4-imagick php-ssh2 imagemagick php7.4-bcmath php7.4-soap
+apt-get install -y php7.4 php7.4-mysql php7.4-mbstring php7.4-zip php7.4-gd php7.4-curl \
+php7.4-xml php7.4-imagick php-ssh2 imagemagick php7.4-bcmath php7.4-soap
 
 # Install PHP from the https://packages.sury.org/php/ repository:
 apt-get -y install apt-transport-https lsb-release ca-certificates curl
@@ -47,6 +47,13 @@ sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/
 apt-get update
 apt-get install -y php8.0 php8.0-mysql php8.0-mbstring php8.0-zip php8.0-gd \
 php8.0-curl php8.0-xml php8.0-imagick php8.0-mcrypt php8.0-ssh2 imagemagick php8.0-bcmath php8.0-soap
+
+apt-get install -y php8.1 php8.1-mysql php8.1-mbstring php8.1-zip php8.1-gd \
+php8.1-curl php8.1-xml php8.1-imagick php8.1-mcrypt php8.1-ssh2 imagemagick php8.1-bcmath php8.1-soap
+
+# Enable a certain PHP version:
+sudo a2dismod php7.4 php8.0 php8.1
+sudo a2enmod php8.0
 
 # Increase PHP limits (this also can be done with "php_value" in .htaccess):
 # sed -i "s/memory_limit = 128M/memory_limit = 1G/" /etc/php/7.4/apache2/php.ini
