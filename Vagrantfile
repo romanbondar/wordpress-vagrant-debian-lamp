@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
     create: true
   config.vm.network :forwarded_port, guest: 80, host: 8080
   config.vm.network :forwarded_port, guest: 443, host: 8081
-  config.vm.network :forwarded_port, guest: 9090, host: 9091
+  config.vm.network :forwarded_port, guest: 9090, host: 9091 # Cockpit
   config.vm.provider "virtualbox" do |virtualbox|
     virtualbox.memory = 3072
   end
@@ -42,7 +42,7 @@ CREATE USER 'username' IDENTIFIED BY 'password'; \
 GRANT ALL ON wordpress.* TO 'username';"
 
 # Install PHP:
-#apt-get install -y php7.4 php7.4-common php7.4-mysql php7.4-mbstring php7.4-zip php7.4-gd php7.4-curl php7.4-xml php7.4-imagick php-ssh2 imagemagick php7.4-bcmath php7.4-soap php7.4-intl
+apt-get install -y php7.4 php7.4-common php7.4-mysql php7.4-mbstring php7.4-zip php7.4-gd php7.4-curl php7.4-xml php7.4-imagick php-ssh2 imagemagick php7.4-bcmath php7.4-soap php7.4-intl
 
 # Install PHP from the https://packages.sury.org/php/ repository:
 apt-get -y install apt-transport-https lsb-release ca-certificates curl
@@ -52,16 +52,16 @@ apt-get update
 
 apt-get install -y php8.0 php8.0-common php8.0-mysql php8.0-mbstring php8.0-zip php8.0-gd php8.0-curl php8.0-xml php8.0-imagick php8.0-mcrypt php8.0-ssh2 imagemagick php8.0-bcmath php8.0-soap php8.0-intl
 
-#apt-get install -y php8.1 php8.1-common php8.1-mysql php8.1-mbstring php8.1-zip php8.1-gd php8.1-curl php8.1-xml php8.1-imagick php8.1-mcrypt php8.1-ssh2 imagemagick php8.1-bcmath php8.1-soap php8.1-intl
+apt-get install -y php8.1 php8.1-common php8.1-mysql php8.1-mbstring php8.1-zip php8.1-gd php8.1-curl php8.1-xml php8.1-imagick php8.1-mcrypt php8.1-ssh2 imagemagick php8.1-bcmath php8.1-soap php8.1-intl
 
 # Enable a certain PHP version:
 sudo a2dismod php7.4 php8.0 php8.1
-sudo a2enmod php8.0
+sudo a2enmod php8.1
 
 # Increase PHP limits (this also can be done with "php_value" in .htaccess):
-# sed -i "s/memory_limit = 128M/memory_limit = 1G/" /etc/php/7.4/apache2/php.ini
-# sed -i "s/post_max_size = 8M/post_max_size = 8G/" /etc/php/7.4/apache2/php.ini
-# sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 8G/" /etc/php/7.4/apache2/php.ini
+sed -i "s/memory_limit = 128M/memory_limit = 1G/" /etc/php/8.1/apache2/php.ini
+sed -i "s/post_max_size = 8M/post_max_size = 8G/" /etc/php/8.1/apache2/php.ini
+sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 8G/" /etc/php/8.1/apache2/php.ini
 
 # Restart Apache after enabling the Apache rewrite module, ssl module, and increasing the PHP limits:
 systemctl restart apache2
