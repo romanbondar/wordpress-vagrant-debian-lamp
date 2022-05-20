@@ -1,0 +1,32 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/bullseye64"
+  config.vm.synced_folder "html/", "/var/www/html", \
+    create: true, group: "www-data", owner: "www-data"
+  config.vm.synced_folder "Apache logs/", "/var/log/apache2", \
+    create: true
+  config.vm.network :forwarded_port, guest: 80, host: 80
+  config.vm.provider "virtualbox" do |virtualbox|
+    virtualbox.memory = 3072
+  end
+  config.vm.provision "shell", inline: <<-SHELL
+export DEBIAN_FRONTEND=noninteractive
+apt-get update
+apt-get install -y apache2
+bash -c 'echo -e "<Directory /var/www/html>\n\tAllowOverride All\n</Directory>" >> /etc/apache2/apache2.conf'
+a2enmod rewrite
+apt-get install -y mariadb-server
+mariadb -u root -p --skip-password -e \
+"CREATE DATABASE wordpress; \
+CREATE USER 'username' IDENTIFIED BY 'password'; \
+GRANT ALL ON wordpress.* TO 'username';"
+apt-get -y install apt-transport-https lsb-release ca-certificates curl
+wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+apt-get update
+apt-get install -y php8.1 php8.1-common php8.1-mysql php8.1-mbstring php8.1-zip php8.1-gd php8.1-curl php8.1-xml php8.1-imagick php8.1-mcrypt php8.1-ssh2 imagemagick php8.1-bcmath php8.1-soap php8.1-intl
+sed -i "s/memory_limit = 128M/memory_limit = 1G/" /etc/php/8.1/apache2/php.ini
+sed -i "s/post_max_size = 8M/post_max_size = 8G/" /etc/php/8.1/apache2/php.ini
+sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 8G/" /etc/php/8.1/apache2/php.ini
+systemctl restart apache2
+  SHELL
+end
