@@ -35,6 +35,14 @@ a2enmod headers
 # Install MariaDB:
 apt-get install -y mariadb-server
 
+# Install MySQL:
+#apt-get install -y wget
+#wget https://dev.mysql.com/get/mysql-apt-config_0.8.22-1_all.deb
+# https://dev.mysql.com/downloads/repo/apt/
+#apt-get install -y ./mysql-apt-config_0.8.22-1_all.deb
+#apt-get update
+#apt-get install -y mysql-server
+
 # Create a DB and a DB user for WP using default WP installer placeholders for faster WP installation:
 mariadb -u root -p --skip-password -e \
 "CREATE DATABASE wordpress; \
