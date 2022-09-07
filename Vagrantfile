@@ -16,6 +16,7 @@ Vagrant.configure("2") do |config|
 export DEBIAN_FRONTEND=noninteractive
 
 apt-get update
+apt-get upgrade -y
 
 # Install Apache:
 apt-get install -y apache2
@@ -54,8 +55,8 @@ apt-get install -y php7.4 php7.4-common php7.4-mysql php7.4-mbstring php7.4-zip 
 
 # Install PHP from the https://packages.sury.org/php/ repository:
 apt-get -y install apt-transport-https lsb-release ca-certificates curl
-wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg
+sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 apt-get update
 
 apt-get install -y php8.0 php8.0-common php8.0-mysql php8.0-mbstring php8.0-zip php8.0-gd php8.0-curl php8.0-xml php8.0-imagick php8.0-mcrypt php8.0-ssh2 imagemagick php8.0-bcmath php8.0-soap php8.0-intl
