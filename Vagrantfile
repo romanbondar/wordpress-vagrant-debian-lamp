@@ -63,9 +63,11 @@ apt-get install -y php8.0 php8.0-common php8.0-mysql php8.0-mbstring php8.0-zip 
 
 apt-get install -y php8.1 php8.1-common php8.1-mysql php8.1-mbstring php8.1-zip php8.1-gd php8.1-curl php8.1-xml php8.1-imagick php8.1-mcrypt php8.1-ssh2 imagemagick php8.1-bcmath php8.1-soap php8.1-intl
 
+apt-get install -y php8.2 php8.2-common php8.2-mysql php8.2-mbstring php8.2-zip php8.2-gd php8.2-curl php8.2-xml php8.2-imagick php8.2-ssh2 imagemagick php8.2-bcmath php8.2-soap php8.2-intl
+
 # Enable a certain PHP version:
-a2dismod php7.4 php8.0 php8.1
-a2enmod php8.1
+a2dismod php7.4 php8.0 php8.1 php8.2
+a2enmod php8.2
 
 # Increase PHP limits (this also can be done with "php_value" in .htaccess):
 sed -i "s/memory_limit = 128M/memory_limit = 1G/" /etc/php/8.1/apache2/php.ini
