@@ -9,6 +9,7 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 9090, host: 9091 # Cockpit
   config.vm.provider "virtualbox" do |virtualbox|
     virtualbox.memory = 3072
+    virtualbox.cpus = 4
   end
   config.vm.provision "shell", inline: <<-SHELL
 
