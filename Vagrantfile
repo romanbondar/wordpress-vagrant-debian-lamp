@@ -60,9 +60,9 @@ curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/ph
 sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
 apt-get update
 
-apt-get install -y php8.0 php8.0-common php8.0-mysql php8.0-mbstring php8.0-zip php8.0-gd php8.0-curl php8.0-xml php8.0-imagick php8.0-mcrypt php8.0-ssh2 php8.0-bcmath php8.0-soap php8.0-intl
+apt-get install -y php8.0 php8.0-common php8.0-mysql php8.0-mbstring php8.0-zip php8.0-gd php8.0-curl php8.0-xml php8.0-imagick php8.0-ssh2 php8.0-bcmath php8.0-soap php8.0-intl
 
-apt-get install -y php8.1 php8.1-common php8.1-mysql php8.1-mbstring php8.1-zip php8.1-gd php8.1-curl php8.1-xml php8.1-imagick php8.1-mcrypt php8.1-ssh2 php8.1-bcmath php8.1-soap php8.1-intl
+apt-get install -y php8.1 php8.1-common php8.1-mysql php8.1-mbstring php8.1-zip php8.1-gd php8.1-curl php8.1-xml php8.1-imagick php8.1-ssh2 php8.1-bcmath php8.1-soap php8.1-intl
 
 apt-get install -y php8.2 php8.2-common php8.2-mysql php8.2-mbstring php8.2-zip php8.2-gd php8.2-curl php8.2-xml php8.2-imagick php8.2-ssh2 php8.2-bcmath php8.2-soap php8.2-intl
 
